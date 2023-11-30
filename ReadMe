@@ -1,0 +1,9 @@
+It is a simulator of shop.
+INSTRUCTION:
+  1) Firstly you should enter count of games. You can generate any games (for example, you can create 1 or 1000 games)
+  2) Than you can shoise action:
+    "купить" - this comand denote actualy "buy". Program asking you choose ganre of game. (it have number 1 - 5). Choose ID of game and buy it!
+    "список купленных" - this command show list of games. Than, if you answer "да", you can enter ID of game? that you want to retern. Else you can countinue shoping. 
+  3) "завершить покупки" - this command stop shoping and show keys of games.
+
+In this program I used generator by generating games and keys and custom iterator by showing game in console, becouse I wanted do some exersises by they.
