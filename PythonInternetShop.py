@@ -1,4 +1,3 @@
-import random
 class Iterator:
     def __init__(self, options):
         self.options = options
@@ -27,21 +26,106 @@ class Iterator:
 
 class Shop():
     def __init__(self):
-        self.assortement = []
+        self.assortement_VN = []
+        self.assortement_strategic = []
+        self.assortement_shooter = []
+        self.assortement_RPG = []
+        self.assortement_sandbox = []
         self.command = 'products'
         self.byed = []
-    def pluss_game(self, otions):
-        self.assortement.append(otions)
+    def pluss_game(self, otions, list):
+        if list == 'Стратегия':
+            self.assortement_strategic.append(otions)
+        elif list == 'Визуальная новелла':
+            self.assortement_VN.append(otions)
+        elif list == 'Шутер':
+            self.assortement_shooter.append(otions)
+        elif list == 'РПГ':
+            self.assortement_RPG.append(otions)
+        elif list == 'Песочница':
+            self.assortement_sandbox.append(otions)
+
     def stop_shopping(self):
         self.command = 'key'
     def buy_game(self):
+        assortements = []
+        gnr = int(input('введите жанр (Шутер 1, Стратегия 2, РПГ 3, Визуальная новелла 4, Песочница 5) '))
+        if gnr == 2:
+            for i in self.assortement_strategic:
+                assortements.append(i)
+                print(i)
+        if gnr == 4:
+            for i in self.assortement_VN:
+                assortements.append(i)
+                print(i)
+        if gnr == 1:
+            for i in self.assortement_shooter:
+                assortements.append(i)
+                print(i)
+        if gnr == 5:
+            for i in self.assortement_sandbox:
+                assortements.append(i)
+                print(i)
+        if gnr == 3:
+            for i in self.assortement_RPG:
+                assortements.append(i)
+                print(i)
+        print('Ассортимент:', assortements)
         index = int(input('Введите индекс: '))
         index -= 1
-        self.byed.append(self.assortement[index])
-        self.assortement.pop(index)
+
+        if gnr == 2:
+            for i in self.assortement_strategic:
+                if i[3] == index:
+                    self.byed.append(assortements[i])
+                    self.assortement_strategic.pop(a)
+                    a += 1
+        a = 0
+        if gnr == 4:
+            for i in self.assortement_strategic:
+                print(i[3])
+                if i[3] == index:
+
+                    self.byed.append(assortements[i])
+                    self.assortement_strategic.pop(a)
+                    a += 1
+        if gnr == 1:
+            for i in self.assortement_strategic:
+                if i[3] == index:
+                    self.byed.append(assortements[i])
+                    self.assortement_strategic.pop(a)
+                    a += 1
+        if gnr == 5:
+            for i in self.assortement_strategic:
+                if i[3] == index:
+                    self.byed.append(assortements[i])
+                    self.assortement_strategic.pop(a)
+                    a += 1
+        if gnr == 3:
+            for i in self.assortement_strategic:
+                if i[3] == index:
+                    self.byed.append(assortements[i])
+                    self.assortement_strategic.pop(a)
+                    a += 1
+
+
+
+
 
     def __iter__(self):
-        return Iterator(self.assortement)
+        gnr = int(input('введите жанр (Шутер 1, Стратегия 2, РПГ 3, Визуальная новелла 4, Песочница 5) '))
+        itrt = []
+        if gnr == 1:
+            itrt = self.assortement_shooter
+        if gnr == 2:
+            itrt = self.assortement_strategic
+        if gnr == 3:
+            itrt = self.assortement_RPG
+        if gnr == 4:
+            itrt = self.assortement_VN
+        if gnr == 5:
+            itrt = self.assortement_sandbox
+        return Iterator(itrt)
 
 
 
@@ -71,7 +155,8 @@ def generator():
         neworder = newGames(name, genre, key, number)
         number += 1
 
-        shop.pluss_game(neworder.list)
+
+        shop.pluss_game(neworder.list, genre)
         yield neworder
 
 
@@ -88,22 +173,6 @@ while onoff:
 
     actions = input('купить / список купленных / завершить покупки ')
     if actions == 'купить':
-
-        ganr = int(input('введите жанр (Шутер 1, Стратегия 2, РПГ 3, Визуальная новелла 4, Песочница 5) '))
-        for i in shop:
-            if ganr == 1 and i[1] == 'Шутер':
-                print(i)
-            elif ganr == 2 and i[1] == 'Стратегия':
-                print(i)
-            elif ganr == 3 and i[1] == 'РПГ':
-                print(i)
-            elif ganr == 4 and i[1] == 'Визуальная новелла':
-                print(i)
-            elif ganr == 5 and i[1] == 'Песочница':
-                print(i)
-            else:
-                print(' %игра другого жанра% ')
-
         shop.buy_game()
     elif actions == 'список купленных' or actions == 'список':
         if shop.byed == []:
@@ -132,3 +201,5 @@ while onoff:
         for i in shop:
             print(i)
         print('Спасибо за покупки! )')
+
+
