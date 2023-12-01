@@ -1,3 +1,4 @@
+import random
 class Iterator:
     def __init__(self, options):
         self.options = options
@@ -6,14 +7,7 @@ class Iterator:
 
     def __next__(self):
         if shop.command == 'products':
-            if self.current < self.lennn:
-                exettt = (self.options[self.current][0], self.options[self.current][1],
-                          f'index {self.options[self.current][3]}')
-                self.current += 1
-                print(self.current)
-                return exettt
-
-            raise StopIteration
+            print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         else:
             if self.current < len(shop.byed):
                 exettt = shop.byed[self.current][2] + f' ключь к {shop.byed[self.current][0]}'
@@ -21,6 +15,7 @@ class Iterator:
                 print(self.current)
                 return exettt
             raise StopIteration
+
 
 
 
@@ -53,59 +48,58 @@ class Shop():
         if gnr == 2:
             for i in self.assortement_strategic:
                 assortements.append(i)
-                print(i)
+                print(i[0], i[1], 'index', i[3])
         if gnr == 4:
             for i in self.assortement_VN:
                 assortements.append(i)
-                print(i)
+                print(i[0], i[1], 'index', i[3])
         if gnr == 1:
             for i in self.assortement_shooter:
                 assortements.append(i)
-                print(i)
+                print(i[0], i[1], 'index', i[3])
         if gnr == 5:
             for i in self.assortement_sandbox:
                 assortements.append(i)
-                print(i)
+                print(i[0], i[1], 'index', i[3])
         if gnr == 3:
             for i in self.assortement_RPG:
                 assortements.append(i)
-                print(i)
-        print('Ассортимент:', assortements)
+                print(i[0], i[1], 'index', i[3])
         index = int(input('Введите индекс: '))
-        index -= 1
 
+
+
+        a = 0
         if gnr == 2:
             for i in self.assortement_strategic:
                 if i[3] == index:
-                    self.byed.append(assortements[i])
+                    self.byed.append((assortements[a][0], assortements[a][1], f'index {assortements[a][3]}'))
                     self.assortement_strategic.pop(a)
                     a += 1
-        a = 0
         if gnr == 4:
-            for i in self.assortement_strategic:
+            for i in self.assortement_VN:
                 print(i[3])
                 if i[3] == index:
-
-                    self.byed.append(assortements[i])
-                    self.assortement_strategic.pop(a)
+                    self.byed.append(assortements[a])
+                    self.assortement_VN.pop(a)
                     a += 1
         if gnr == 1:
-            for i in self.assortement_strategic:
+            for i in self.assortement_shooter:
                 if i[3] == index:
-                    self.byed.append(assortements[i])
-                    self.assortement_strategic.pop(a)
+                    self.byed.append(assortements[a])
+                    self.assortement_shooter.pop(a)
                     a += 1
         if gnr == 5:
-            for i in self.assortement_strategic:
+            for i in self.assortement_sandbox:
                 if i[3] == index:
-                    self.byed.append(assortements[i])
-                    self.assortement_strategic.pop(a)
+                    self.byed.append(assortements[a])
+                    self.assortement_sandbox.pop(a)
                     a += 1
         if gnr == 3:
-            for i in self.assortement_strategic:
+            for i in self.assortement_RPG:
                 if i[3] == index:
-                    self.byed.append(assortements[i])
-                    self.assortement_strategic.pop(a)
+                    self.byed.append(assortements[a])
+                    self.assortement_RPG.pop(a)
                     a += 1
 
 
@@ -113,19 +107,11 @@ class Shop():
 
 
     def __iter__(self):
-        gnr = int(input('введите жанр (Шутер 1, Стратегия 2, РПГ 3, Визуальная новелла 4, Песочница 5) '))
-        itrt = []
-        if gnr == 1:
-            itrt = self.assortement_shooter
-        if gnr == 2:
-            itrt = self.assortement_strategic
-        if gnr == 3:
-            itrt = self.assortement_RPG
-        if gnr == 4:
-            itrt = self.assortement_VN
-        if gnr == 5:
-            itrt = self.assortement_sandbox
-        return Iterator(itrt)
+
+
+
+
+        return Iterator(self.byed)
 
 
 
@@ -179,7 +165,7 @@ while onoff:
             print('Корзина пуста')
         else:
             for i in shop.byed:
-                print(i)
+                print(i[0], i[1], 'index', i[3])
             answer = input('Хотите что то убрать из корзины? ')
             if answer == 'yes' or answer == 'да' or answer == 'yes':
                 ind = int(input('Введите индекс: '))
@@ -195,11 +181,8 @@ while onoff:
                 if tumbler:
                     print('Данной игры в корзине не найдено.')
     else:
-
         shop.stop_shopping()
         onoff = False
         for i in shop:
             print(i)
         print('Спасибо за покупки! )')
-
-
